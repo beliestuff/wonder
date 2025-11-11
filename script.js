@@ -75,7 +75,7 @@ async function setup() {
   });
 
   drawFiveBtn.addEventListener("click", () => {
-    const drawn = [];
+    const drawn = [5];
     for (let i = 0; i < 5; i++) {
       const c = weightedRandom(cards);
       if (c) drawn.push(c);
