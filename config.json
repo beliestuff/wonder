@@ -1,3 +1,5 @@
-{
-  "api_url": "https://api.pokemontcg.io/v2/cards?pageSize=50&q=set.id:base1"
-}
+[
+  { "name": "Dragon", "image": "images/dragon.png", "rarity": "Legendary", "weight": 1 },
+  { "name": "Wizard", "image": "images/wizard.png", "rarity": "Rare", "weight": 5 },
+  { "name": "Knight", "image": "images/knight.png", "rarity": "Common", "weight": 20 }
+]
