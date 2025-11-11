@@ -68,23 +68,20 @@ async function setup() {
     });
   }
 
-  drawOneBtn.addEventListener("click", () => {
-    const c = weightedRandom(cards);
-    if (!c) { logError("weightedRandom returned null"); return; }
-    renderDrawn([c]);
-  });
+const drawOneBtn = document.getElementById("drawOneBtn");
+const drawFiveBtn = document.getElementById("drawFiveBtn");
 
 drawOneBtn.addEventListener("click", () => {
   const c = weightedRandom(cards);
   if (!c) {
-    logError("weightedRandom returned null");
+    console.error("weightedRandom returned null");
     return;
   }
   renderDrawn([c]);
 });
 
 drawFiveBtn.addEventListener("click", () => {
-  const drawn = []; // start with an empty array
+  const drawn = []; // empty array
   for (let i = 0; i < 5; i++) {
     const c = weightedRandom(cards);
     if (c) drawn.push(c);
