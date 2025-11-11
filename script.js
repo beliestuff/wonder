@@ -1,38 +1,32 @@
-let cards = [];
-
 async function loadCards() {
-  const output = document.getElementById('output');
-  output.innerHTML = '<p>Loading cards...</p>';
+  const res = await fetch("cards.json");
+  return await res.json();
+}
 
-  try {
-    const res = await fetch('https://api.pokemontcg.io/v2/cards?pageSize=50&q=set.id:base1');
-    const data = await res.json();
-    cards = data.data || [];
-    output.innerHTML = '<p>Cards loaded! Click "Wonder Pick" to choose one.</p>';
-  } catch (err) {
-    output.innerHTML = '<p style="color:red;">Error loading cards.</p>';
-    console.error(err);
+function weightedRandom(cards) {
+  const totalWeight = cards.reduce((sum, c) => sum + c.weight, 0);
+  let random = Math.random() * totalWeight;
+
+  for (let card of cards) {
+    random -= card.weight;
+    if (random <= 0) return card;
   }
 }
 
-function pickCard() {
-  const output = document.getElementById('output');
-  if (!cards.length) {
-    output.innerHTML = '<p>No cards loaded yet. Please reload.</p>';
-    return;
-  }
-  const random = cards[Math.floor(Math.random() * cards.length)];
-  output.innerHTML = `
-    <h2>${random.name}</h2>
-    <img src="${random.images.large || random.images.small}" alt="${random.name}" />
-    <p><strong>Set:</strong> ${random.set.name}</p>
-    <p><strong>Rarity:</strong> ${random.rarity || '—'}</p>
-    <p><strong>HP:</strong> ${random.hp || '—'}</p>
-  `;
+async function setup() {
+  const cards = await loadCards();
+  const drawBtn = document.getElementById("draw-btn");
+  const resultDiv = document.getElementById("result");
+
+  drawBtn.addEventListener("click", () => {
+    const card = weightedRandom(cards);
+    resultDiv.innerHTML = `
+      <img src="${card.image}" alt="${card.name}">
+      <h2>${card.name}</h2>
+      <p>${card.rarity}</p>
+    `;
+  });
 }
 
-document.getElementById('reload').addEventListener('click', loadCards);
-document.getElementById('pick').addEventListener('click', pickCard);
+setup();
 
-// Cargar cartas al inicio
-loadCards();
