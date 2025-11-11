@@ -68,19 +68,20 @@ async function setup() {
     });
   }
 
-const drawOneBtn = document.getElementById("drawOneBtn");
+  drawOneBtn.addEventListener("click", () => {
+    const c = weightedRandom(cards);
+    if (!c) { logError("weightedRandom returned null"); return; }
+    renderDrawn([c]);
+  });
 
-
-drawOneBtn.addEventListener("click", () => {
-  const c = weightedRandom(cards);
-  if (!c) {
-    console.error("weightedRandom returned null");
-    return;
-  }
-  renderDrawn([c]);
-});
-
-
+  drawTenBtn.addEventListener("click", () => {
+    const drawn = [];
+    for (let i = 0; i < 10; i++) {
+      const c = weightedRandom(cards);
+      if (c) drawn.push(c);
+    }
+    renderDrawn(drawn);
+  });
 
   console.log("Card Draw setup complete. Cards loaded:", cards.length);
 }
