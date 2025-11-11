@@ -69,7 +69,7 @@ async function setup() {
   }
 
 const drawOneBtn = document.getElementById("drawOneBtn");
-const drawFiveBtn = document.getElementById("drawFiveBtn");
+
 
 drawOneBtn.addEventListener("click", () => {
   const c = weightedRandom(cards);
@@ -80,14 +80,6 @@ drawOneBtn.addEventListener("click", () => {
   renderDrawn([c]);
 });
 
-drawFiveBtn.addEventListener("click", () => {
-  const drawn = []; // empty array
-  for (let i = 0; i < 5; i++) {
-    const c = weightedRandom(cards);
-    if (c) drawn.push(c);
-  }
-  renderDrawn(drawn);
-});
 
 
   console.log("Card Draw setup complete. Cards loaded:", cards.length);
